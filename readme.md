@@ -2,28 +2,30 @@
 
 Simple envornment for learning and testing [bird](https://bird.network.cz/).
 
-# Task 0. "Flatwhite"
+## Task 0. "Flatwhite"
 
-## Topology
+### Topology
 3 logical "nodes": moscow, samara, phuket. Actually containers with shared bridge network 192.168.50.0/24.
 Every node have dummy interface "dummmy0" with own network (/24 cidr).
 
 
+```
 containers:
 - moscow:
-    local address = 192.168.50.110
-    own network   = 10.0.10.0/24
+    local address        = 192.168.50.110
+    own network (dummy0) = 10.0.10.0/24
 - samara:
-    local address = 192.168.50.120
-    own network   = 10.0.20.0/24
+    local address        = 192.168.50.120
+    own network (dummy0) = 10.0.20.0/24
 - phuket:
-    local address = 192.168.50.120
-    own network   = 10.0.30.0/24
+    local address        = 192.168.50.120
+    own network (dummy0) = 10.0.30.0/24
+```
 
-## Goal
-Goal of this task - simple exchange route information about dummy interfaces between nodes
+### Goal
+Goal of this task: make simple exchange routes information about dummy interfaces between nodes.
 
-## OSPF solution
+### OSPF solution
 
 quick start:
 ```
