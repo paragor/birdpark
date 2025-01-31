@@ -1,0 +1,41 @@
+
+
+services:
+  moscow: &bird
+    image: alpine:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sleep infinity
+    cap_add:
+      - NET_ADMIN
+    environment:
+      OWN_NETWORK: 10.0.10.1/24
+    networks:
+      birdpark:
+        ipv4_address: 192.168.50.110
+  samara:
+    <<: *bird
+    environment:
+      OWN_NETWORK: 10.0.20.1/24
+    networks:
+      birdpark:
+        ipv4_address: 192.168.50.120
+  phuket:
+    <<: *bird
+    environment:
+      OWN_NETWORK: 10.0.30.1/24
+    networks:
+      birdpark:
+        ipv4_address: 192.168.50.130
+  
+
+networks:
+  birdpark:
+    name: birdpark
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.50.0/24
+          gateway: 192.168.50.1
